@@ -28,6 +28,9 @@ Follow these steps to run the project locally on your machine.
 ```bash
 git clone [https://github.com/your-username/learnflow.git](https://github.com/your-username/learnflow.git)
 cd learnflow
+```
 
 ### 2. Install Dependencies
+```bash
 npm install
+```
