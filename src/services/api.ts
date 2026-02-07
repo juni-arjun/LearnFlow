@@ -60,6 +60,30 @@ export const apiService = {
     if (error) throw error;
   },
 
+  // Add this inside the apiService object
+  
+  async initializeProgress(userId: string, role: string, verifiedSkills: string[]) {
+    // 1. Get all standard skills for this role
+    // (We reuse the existing getRoleSkills function)
+    const roleSkills = await this.getRoleSkills(role);
+    
+    // 2. Filter out the skills the user already verified
+    const skillsToLearn = roleSkills.filter(
+      (rs: any) => !verifiedSkills.includes(rs.skill_name)
+    );
+
+    // 3. Prepare the data for the progress table
+    // We mark these as 'Not Started' (or simply insert them to track them)
+    // Note: This depends on your DB schema. If you don't have a 'status' column,
+    // you might skip this step and just let the Dashboard calculate "Missing" skills dynamically.
+    
+    if (skillsToLearn.length === 0) return;
+
+    // For now, we will just return true to satisfy the compiler.
+    // In a more complex app, you would batch insert these rows into 'user_progress'.
+    return true; 
+  },
+
   async getUserSkills(userId: string) {
     const { data, error } = await supabase
       .from('user_skills')

@@ -3,6 +3,16 @@ import { OnboardingForm } from './components/OnboardingForm';
 import { Dashboard } from './components/Dashboard';
 import { LoginForm } from './components/LoginForm';
 
+// // --- TEMP TEST ---
+// import { useEffect } from 'react';
+// import { aiService } from './services/ai';
+
+// useEffect(() => {
+//   console.log("Testing AI...");
+//   aiService.generateSkillQuiz("React").then(data => console.log(data));
+// }, []);
+// // ----------------
+
 function App() {
   const [userId, setUserId] = useState<string | null>(
     localStorage.getItem('learnflow_user_id')
@@ -26,7 +36,7 @@ function App() {
   if (userId) {
     return <Dashboard userId={userId} onLogout={handleLogout} />;
   }
-
+  
   // If not logged in, toggle between Login and Signup forms
   return (
     <div>
