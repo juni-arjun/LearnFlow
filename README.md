@@ -1,73 +1,33 @@
-# React + TypeScript + Vite
+# 🚀 LearnFlow: Personalized Learning Roadmap
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+LearnFlow is an intelligent, full-stack application designed to help developers and learners bridge the gap between their current skills and their dream career.
 
-Currently, two official plugins are available:
+It automatically analyzes a user's current skill set against industry standards for roles like "Web Developer" or "Data Scientist" and generates a dynamic, interactive roadmap to track their progress.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+- **🎯 Personalized Onboarding:** Tailored roadmaps based on your specific career goal (e.g., Frontend Dev, DevOps) and experience level.
+- **📊 Skill Gap Analysis:** Visually distinguishes between skills you *have* (Owned) and skills you *need* (Missing).
+- **📈 Progress Tracking:** Real-time progress bars and percentage completion stats.
+- **🔐 Secure Authentication:** Password-less email login system powered by Supabase.
+- **💾 Cloud Sync:** All data is persisted in a Supabase PostgreSQL database, so you never lose your progress.
+- **📱 Responsive Design:** Built with Tailwind CSS to look great on mobile and desktop.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- **Frontend:** React 18, TypeScript, Vite
+- **Styling:** Tailwind CSS, Lucide React (Icons)
+- **Backend/Database:** Supabase (PostgreSQL)
+- **State Management:** React Hooks
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🚀 Getting Started
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Follow these steps to run the project locally on your machine.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 1. Clone the Repository
+```bash
+git clone [https://github.com/your-username/learnflow.git](https://github.com/your-username/learnflow.git)
+cd learnflow
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### 2. Install Dependencies
+npm install
