@@ -11,8 +11,11 @@ interface OnboardingFormProps {
 export function OnboardingForm({ onComplete }: OnboardingFormProps) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [targetRole, setTargetRole] = useState('Web Developer');
+  
+  // CHANGED: Default is empty so the placeholder shows
+  const [targetRole, setTargetRole] = useState('');
   const [experienceLevel, setExperienceLevel] = useState('Beginner');
+  
   const [skills, setSkills] = useState<string[]>([]);
   const [currentSkill, setCurrentSkill] = useState('');
   const [loading, setLoading] = useState(false);
@@ -68,21 +71,27 @@ export function OnboardingForm({ onComplete }: OnboardingFormProps) {
       // Add skill (User passed OR User chose "Add Anyway")
       setSkills([...skills, skillToVerify]);
     }
-    // If shouldAdd is false, we just close the modal and do nothing
     
     setCurrentSkill('');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!targetRole.trim()) {
+        alert("Please enter a target role");
+        return;
+    }
+
     setLoading(true);
     try {
+      // Create user with the custom role
       const user = await apiService.createUser(name, email, targetRole, experienceLevel);
       
       if (skills.length > 0) {
         await apiService.addUserSkills(user.id, skills);
       }
       
+      // Initialize progress (db logic)
       await apiService.initializeProgress(user.id, targetRole, skills);
       
       onComplete(user.id);
@@ -163,17 +172,28 @@ export function OnboardingForm({ onComplete }: OnboardingFormProps) {
               </label>
               <div className="relative">
                 <Target className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-                <select
+                
+                {/* --- NEW SMART INPUT --- */}
+                <input
                   id="targetRole"
+                  list="role-suggestions"
+                  type="text"
                   value={targetRole}
                   onChange={(e) => setTargetRole(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 appearance-none bg-white"
-                >
-                  <option>Web Developer</option>
-                  <option>Data Scientist</option>
-                  <option>DevOps Engineer</option>
-                  <option>Mobile Developer</option>
-                </select>
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                  placeholder="e.g. MERN Stack Developer"
+                  required
+                />
+                <datalist id="role-suggestions">
+                  <option value="Web Developer" />
+                  <option value="Data Scientist" />
+                  <option value="DevOps Engineer" />
+                  <option value="Mobile Developer" />
+                  <option value="AI Engineer" />
+                  <option value="Full Stack Developer" />
+                </datalist>
+                {/* ----------------------- */}
+                
               </div>
             </div>
 
@@ -213,7 +233,6 @@ export function OnboardingForm({ onComplete }: OnboardingFormProps) {
                 disabled={isVerifying}
               />
               
-              {/* THE NEW BUTTON */}
               <button
                 type="button"
                 onClick={initiateSkillCheck}
@@ -231,7 +250,6 @@ export function OnboardingForm({ onComplete }: OnboardingFormProps) {
               </button>
             </div>
             
-            {/* Loading Text */}
             {isVerifying && (
                <p className="text-sm text-blue-600 mb-3 animate-pulse">Generating quiz questions...</p>
             )}

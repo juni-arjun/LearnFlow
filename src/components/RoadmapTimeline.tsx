@@ -126,7 +126,7 @@ export function RoadmapTimeline({ roadmap, completedSkills, onToggleSkill }: Roa
                     <div className="flex items-center justify-between">
                       <div>
                         <h3 className="text-lg font-semibold text-gray-900">
-                          Step {step.order}: {step.skill}
+                          Step {step.order}: {(step as any).displayTitle || step.skill}
                         </h3>
                         <p className="text-sm text-gray-600">
                           {isCompleted ? 'Completed' : 'Not started yet'}
